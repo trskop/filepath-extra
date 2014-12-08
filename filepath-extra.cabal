@@ -1,13 +1,16 @@
 name:                 filepath-extra
 version:              0.1.0.0
 synopsis:             Functions missing in filepath library
--- description:
+description:
+  Library introduces path combinators built on top of @filepath@ library. There
+  are better ways to describe paths, in Haskell, but one thing makes `filepath`
+  unsurpassed, it is shipped with GHC.
 homepage:             https://github.com/trskop/filepath-extra
 license:              BSD3
 license-file:         LICENSE
 author:               Peter Trško
 maintainer:           peter.trsko@gmail.com
--- copyright:
+copyright:            Copyright (c) 2014 Peter Trško
 category:             System
 build-type:           Simple
 -- extra-source-files:
