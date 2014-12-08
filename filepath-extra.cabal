@@ -21,8 +21,7 @@ library
   hs-source-dirs:       src
   exposed-modules:
     System.FilePath.Extra
-  -- other-modules:
-  -- other-extensions:
+  other-extensions:     NoImplicitPrelude
   build-depends:
       base >=4.6 && <4.8
     , filepath
