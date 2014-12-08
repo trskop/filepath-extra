@@ -25,11 +25,12 @@ import Prelude (error)
 
 import Data.Bool (Bool, otherwise)
 import Data.Eq (Eq((==)))
-import Data.Function ((.), ($))
+import Data.Function ((.), ($), on)
 import Data.Functor (Functor(fmap))
 import Data.Int (Int)
-import Data.List (drop, take)
+import Data.List (drop, length, map, take, takeWhile, zip)
 import Data.Maybe (Maybe(..), isJust)
+import Data.Tuple (fst, uncurry)
 import System.IO (FilePath)
 
 import System.FilePath ((</>), joinPath, splitDirectories)
@@ -136,3 +137,36 @@ dropDirectories n = joinPath . drop n . splitDirectories
 -- "usr/local"
 takeDirectories :: Int -> FilePath -> FilePath
 takeDirectories n = joinPath . take n . splitDirectories
+
+-- | Find longest common prefix of two paths.
+--
+-- >>> commonPrefix "/home/joe/devel" "/home/joe/bin"
+-- "/home/joe"
+-- >>> commonPrefix "/home/joe/devel" "/home/jim/bin"
+-- "/home"
+-- >>> commonPrefix "/home/joe/devel" "/usr/bin"
+-- "/"
+-- >>> commonPrefix "/usr/local/bin" "usr/local/bin"
+-- ""
+commonPrefix :: FilePath -> FilePath -> FilePath
+commonPrefix path1 path2 = joinPath
+    . map fst . takeWhile (uncurry (==))
+    $ (zip `on` splitDirectories) path1 path2
+
+-- | Drop longest common prefix of two paths.
+--
+-- >>> dropCommonPrefix "/home/joe/devel" "/home/joe/bin"
+-- ("devel", "bin")
+-- >>> dropCommonPrefix "/home/joe" "/home/joe/bin"
+-- ("", "bin")
+-- >>> dropCommonPrefix "" "/home/joe/bin"
+-- ("", "/home/joe/bin")
+-- >>> dropCommonPrefix "/" "/home/joe/bin"
+-- ("", "home/joe/bin")
+dropCommonPrefix :: FilePath -> FilePath -> (FilePath, FilePath)
+dropCommonPrefix path1 path2 =
+    ((,) `on` joinPath . drop prefixLen) path1' path2'
+  where
+    (path1', path2') = ((,) `on` splitDirectories) path1 path2
+    prefixLen = length . takeWhile (uncurry (==))
+        $ (zip `on` splitDirectories) path1 path2
