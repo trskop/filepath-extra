@@ -24,5 +24,7 @@ library
   other-extensions:     NoImplicitPrelude
   build-depends:
       base >=4.6 && <4.8
-    , filepath
+    , filepath >= 1.0 && < 2
+    -- ^ This library only uses splitPath, joinPath and </> which were all
+    -- present since version 1.0.
   default-language:     Haskell2010
