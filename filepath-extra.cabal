@@ -1,5 +1,5 @@
 name:                 filepath-extra
-version:              0.1.0.0
+version:              0.1.0.1
 synopsis:             Functions missing in filepath library
 description:
   Library introduces path combinators built on top of @filepath@ library. There
