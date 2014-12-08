@@ -13,8 +13,9 @@ maintainer:           peter.trsko@gmail.com
 copyright:            Copyright (c) 2014 Peter Trško
 category:             System
 build-type:           Simple
--- extra-source-files:
 cabal-version:        >=1.10
+
+extra-source-files:   README.md
 
 library
   hs-source-dirs:       src
