@@ -99,8 +99,8 @@ hasPrefix = (isJust .) . dropPrefix
 
 -- | Drop specified number of directories from the start of a path.
 --
--- Note that if path is absolute (starting with "/" on UNIX/Linux), then it is
--- considered as a first directory.
+-- Note that if path is absolute (starting with \"\/\" on UNIX\/Linux), then
+-- it is considered as a first directory.
 --
 -- >>> dropDirectories 1 "/home/joe/devel/haskell/mega-project"
 -- "home/joe/devel/haskell/mega-project"
